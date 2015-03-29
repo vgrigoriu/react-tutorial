@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 
 namespace Comments.Controllers
 {
@@ -8,7 +9,7 @@ namespace Comments.Controllers
         {
             return Ok(new[]
             {
-                new {id = 1, author = "vasile",  text = "vasile dixit"},
+                new {id = 1, author = "vasile",  text = "vasile dixit la ora " + DateTimeOffset.Now},
                 new {id = 2, author = "horia",  text = "horia vorbește _apăsat_"}
             });
         }
