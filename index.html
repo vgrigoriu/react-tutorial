@@ -8,6 +8,18 @@
 <script src="https://fb.me/react-0.13.1.js"></script>
 <script src="https://fb.me/JSXTransformer-0.13.1.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.0.min.js"></script>
-<script type="text/jsx"></script>
+<script type="text/jsx">
+    var CommentBox = React.createClass({
+        render: function () {
+            return (
+                <div className="commentBox">
+                    Hola, io-s comment box
+                </div>
+            );
+        }
+    });
+
+    React.render(<CommentBox />, document.getElementById('content'));
+</script>
 </body>
 </html>
