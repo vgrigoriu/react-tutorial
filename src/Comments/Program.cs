@@ -1,5 +1,7 @@
 ﻿using System;
+using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.Hosting;
+using Microsoft.Owin.StaticFiles;
 using Owin;
 
 namespace Comments
@@ -20,6 +22,11 @@ public class Startup
 {
     public void Configuration(IAppBuilder app)
     {
-        app.UseFileServer(true);
+        var options = new FileServerOptions()
+        {
+            FileSystem = new PhysicalFileSystem("../../../public"),
+        };
+
+        app.UseFileServer(options);
     }
 }
