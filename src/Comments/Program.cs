@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Http;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.Hosting;
 using Microsoft.Owin.StaticFiles;
@@ -24,9 +25,17 @@ public class Startup
     {
         var options = new FileServerOptions()
         {
-            FileSystem = new PhysicalFileSystem("../../../public"),
+            FileSystem = new PhysicalFileSystem("../../../public/"),
         };
 
         app.UseFileServer(options);
+
+        var config = new HttpConfiguration();
+        config.Routes.MapHttpRoute(
+            name: "Default",
+            routeTemplate: "comments.json",
+            defaults: new { controller = "Comments" });
+
+        app.UseWebApi(config);
     }
 }
