@@ -17,6 +17,13 @@ namespace Comments.Controllers
         {
             return Ok(comments);
         }
+
+        public IHttpActionResult Post(Comment comment)
+        {
+            comments.Add(comment);
+
+            return Ok(comments);
+        }
     }
 
     public class Comment
