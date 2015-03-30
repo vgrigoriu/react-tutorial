@@ -76,8 +76,22 @@ var CommentBox = React.createClass({
     },
 
     handleCommentSubmit: function (comment) {
-        // submit to server
-        alert(JSON.stringify(comment));
+        $.ajax({
+            url: this.props.url,
+            contentType: 'application/json',
+            // this sets the Accept: header
+            dataType: 'json',
+            type: 'POST',
+            // by default, jQuery uses url encoding
+            // and we want a JSON representation instead
+            data: JSON.stringify(comment),
+            success: function (comments) {
+                this.setState({comments: comments});
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(this.props.url, status, err.toString());
+            }.bind(this)
+        });
     },
 
     getInitialState: function () {
@@ -101,6 +115,6 @@ var CommentBox = React.createClass({
 });
 
 React.render(
-    <CommentBox url="comments.json" pollInterval={2000} />,
+    <CommentBox url="comments.json" pollInterval={5000} />,
     document.getElementById('content')
 );
