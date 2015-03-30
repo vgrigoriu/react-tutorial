@@ -25,7 +25,7 @@ var CommentList = React.createClass({
     render: function () {
         var commentNodes = this.props.data.map(function (comment) {
             return (
-                <Comment key={comment.key} author={comment.author}>
+                <Comment key={comment.id} author={comment.author}>
                     {comment.text}
                 </Comment>
             );
@@ -40,11 +40,25 @@ var CommentList = React.createClass({
 });
 
 var CommentForm = React.createClass({
+    handleSubmit: function (e) {
+        e.preventDefault();
+        var author = React.findDOMNode(this.refs.author).value.trim();
+        var text = React.findDOMNode(this.refs.text).value.trim();
+
+        if (!text || !author) {
+            return;
+        }
+
+        React.findDOMNode(this.refs.author).value = '';
+        React.findDOMNode(this.refs.text).value = '';
+        return;
+    },
+
     render: function () {
         return (
-            <form className="commentForm">
-                <input type="text" placeholder="Yo mama" />
-                <textarea placeholder="That's what she said" />
+            <form className="commentForm" onSubmit={this.handleSubmit}>
+                <input type="text" placeholder="Yo mama" ref="author" />
+                <textarea placeholder="That's what she said" ref="text" />
                 <input type="submit" value="Howgh" />
             </form>
         );
