@@ -49,6 +49,8 @@ var CommentForm = React.createClass({
             return;
         }
 
+        this.props.onCommentSubmit({author: author, text: text});
+
         React.findDOMNode(this.refs.author).value = '';
         React.findDOMNode(this.refs.text).value = '';
         return;
@@ -78,19 +80,27 @@ var CommentBox = React.createClass({
             }.bind(this)
         });
     },
+
+    handleCommentSubmit: function (comment) {
+        // submit to server
+        alert(JSON.stringify(comment));
+    },
+
     getInitialState: function () {
         return {comments: []};
     },
+
     componentDidMount: function () {
         this.loadCommentsFromServer();
         setInterval(this.loadCommentsFromServer, this.props.pollInterval);
     },
+
     render: function () {
         return (
             <div className="commentBox">
                 <h1>Comentarii</h1>
                 <CommentList data={this.state.comments} />
-                <CommentForm />
+                <CommentForm onCommentSubmit={this.handleCommentSubmit} />
             </div>
         );
     }
