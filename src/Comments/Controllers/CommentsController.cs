@@ -20,8 +20,12 @@ namespace Comments.Controllers
 
         public IHttpActionResult Post(Comment comment)
         {
-            comments.Add(comment);
+            if (comment == null)
+            {
+                return BadRequest("Could not read posted comment");
+            }
 
+            comments.Add(comment);
             return Ok(comments);
         }
     }
