@@ -42,9 +42,11 @@ var CommentList = React.createClass({
 var CommentForm = React.createClass({
     render: function () {
         return (
-            <div className="commentForm">
-                Aici vine formularul unde comentezi.
-            </div>
+            <form className="commentForm">
+                <input type="text" placeholder="Yo mama" />
+                <textarea placeholder="That's what she said" />
+                <input type="submit" value="Howgh" />
+            </form>
         );
     }
 });
