@@ -42,17 +42,27 @@ public class Startup
     private void ConfigureWebApi(IAppBuilder app)
     {
         var config = new HttpConfiguration();
+        ConfigureWebApiRoutes(config);
+        ConfigureJsonFormatter(config);
+
+        app.UseWebApi(config);
+    }
+
+    private void ConfigureWebApiRoutes(HttpConfiguration config)
+    {
         config.Routes.MapHttpRoute(
             name: "Default",
             routeTemplate: "comments.json",
             defaults: new { controller = "Comments" });
+    }
 
+    private void ConfigureJsonFormatter(HttpConfiguration config)
+    {
         var formatters = config.Formatters;
         var jsonFormatter = formatters.JsonFormatter;
         var settings = jsonFormatter.SerializerSettings;
+
         settings.Formatting = Formatting.Indented;
         settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
-        app.UseWebApi(config);
     }
 }
