@@ -25,13 +25,22 @@ public class Startup
 {
     public void Configuration(IAppBuilder app)
     {
+        ConfigureFileServer(app);
+        ConfigureWebApi(app);
+    }
+
+    private void ConfigureFileServer(IAppBuilder app)
+    {
         var options = new FileServerOptions()
         {
             FileSystem = new PhysicalFileSystem("../../../public/"),
         };
 
         app.UseFileServer(options);
+    }
 
+    private void ConfigureWebApi(IAppBuilder app)
+    {
         var config = new HttpConfiguration();
         config.Routes.MapHttpRoute(
             name: "Default",
