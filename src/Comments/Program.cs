@@ -3,6 +3,8 @@ using System.Web.Http;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.Hosting;
 using Microsoft.Owin.StaticFiles;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Owin;
 
 namespace Comments
@@ -35,6 +37,12 @@ public class Startup
             name: "Default",
             routeTemplate: "comments.json",
             defaults: new { controller = "Comments" });
+
+        var formatters = config.Formatters;
+        var jsonFormatter = formatters.JsonFormatter;
+        var settings = jsonFormatter.SerializerSettings;
+        settings.Formatting = Formatting.Indented;
+        settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
         app.UseWebApi(config);
     }
